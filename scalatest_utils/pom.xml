@@ -7,7 +7,7 @@
     <version>0.1</version>
   </parent>
 
-  <artifactId>scala_test_utils</artifactId>
+  <artifactId>scalatest_utils</artifactId>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -15,5 +15,19 @@
     <scala.version>2.13.6</scala.version>
     <scala.compat.version>2.13</scala.compat.version>
   </properties>
+
+  <dependencies>
+        <dependency>
+            <groupId>uk.co.odinconsultants</groupId>
+            <artifactId>core</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_${scala.compat.version}</artifactId>
+            <version>3.2.9</version>
+            <scope>provided</scope>
+        </dependency>
+  </dependencies>
 
 </project>
