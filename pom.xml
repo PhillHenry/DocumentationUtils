@@ -2,8 +2,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>uk.co.odinconsultants</groupId>
-    <artifactId>DocumentationUtils_2.13</artifactId>
+    <groupId>uk.co.odinconsultants.documentation_utils</groupId>
+    <artifactId>DocumentationUtils</artifactId>
     <version>0.1</version>
     <name>${project.artifactId}</name>
     <description>Utilities for making readable BDD tests</description>
