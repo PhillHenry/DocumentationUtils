@@ -1,4 +1,5 @@
-package uk.co.odinconsultants
+package uk.co.odinconsultants.documentation_utils
+
 import com.github.vertical_blank.sqlformatter.SqlFormatter.format
 
 trait SpecFormats {

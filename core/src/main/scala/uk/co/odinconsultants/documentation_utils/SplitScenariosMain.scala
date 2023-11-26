@@ -1,4 +1,5 @@
-package uk.co.odinconsultants
+package uk.co.odinconsultants.documentation_utils
+
 import java.io.File
 import java.nio.file.{Files, Paths}
 import scala.collection.mutable.ArrayBuffer

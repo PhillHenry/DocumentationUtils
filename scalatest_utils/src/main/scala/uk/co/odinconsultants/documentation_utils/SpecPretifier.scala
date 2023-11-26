@@ -1,7 +1,7 @@
-package uk.co.odinconsultants
+package uk.co.odinconsultants.documentation_utils
+
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
-import uk.co.odinconsultants.SpecFormats
 
 trait SpecPretifier extends AnyWordSpec with BeforeAndAfterAll with BeforeAndAfterEach  with SpecFormats {
 
