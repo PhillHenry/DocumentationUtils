@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>uk.co.odinconsultants.documentation_utils</groupId>
     <artifactId>DocumentationUtils</artifactId>
-    <version>0.2</version>
+    <version>0.3</version>
     <name>${project.artifactId}</name>
     <description>Utilities for making readable BDD tests</description>
     <inceptionYear>2023</inceptionYear>
@@ -37,6 +37,7 @@
     <modules>
         <module>scalatest_utils</module>
         <module>core</module>
+        <module>spark</module>
     </modules>
 
     <dependencies>
