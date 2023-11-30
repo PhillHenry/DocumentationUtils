@@ -4,8 +4,7 @@ import java.lang.reflect.Field
 
 
 object SQLUtils {
-  def createDatumTable(tableName: String, clazz: Class[_]): String = {
-    println(clazz)
+  def createTableSQL(tableName: String, clazz: Class[_]): String = {
     val fields    : Array[Field] = clazz.getDeclaredFields
     val fieldTypes: String       = fields
       .map { field: Field =>
