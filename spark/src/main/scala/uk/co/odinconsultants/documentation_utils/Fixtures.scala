@@ -3,9 +3,14 @@ package uk.co.odinconsultants.documentation_utils
 import org.apache.spark.sql.{Dataset, SparkSession}
 
 import java.nio.file.{Path, Paths}
+import java.sql.Timestamp
 import scala.annotation.tailrec
+import java.sql.Date
+import java.util.TimeZone
 
-case class Datum(id: Int, label: String, partitionKey: Long)
+case class Datum(id: Int, label: String, partitionKey: Long, date: Date, timestamp: Timestamp) {
+  def toInsertSubclause: String = s"(${id}, '${label}', ${partitionKey}, cast(date_format('${date}', 'yyyy-MM-dd') as date), cast(date_format('${timestamp}', 'yyyy-MM-dd HH:mm:ss.SSS') as timestamp))"
+}
 
 trait Fixture[T] {
   def data: Seq[T]
@@ -17,7 +22,11 @@ trait TableNameFixture {
 
 trait SimpleFixture extends Fixture[Datum] {
 
-  val num_partitions = 5
+  import SimpleFixture.now
+
+  val DayMS: Long = 24 * 60 * 60 * 1000
+
+  val num_partitions: Int = 5
 
   def num_rows: Int = 20
 
@@ -25,8 +34,19 @@ trait SimpleFixture extends Fixture[Datum] {
 
   def dataDir(tableName: String): String
 
-  val data: Seq[Datum] =
-    Seq.range(0, num_rows).map((i: Int) => Datum(i, s"label_$i", i % num_partitions))
+  val today = new Date((now.getTime / DayMS).toLong * DayMS)
+  val tsDelta: Long = 200
+  val dayDelta: Int = -1
+
+  val data: Seq[Datum] = {
+    Seq.range(0, num_rows).map((i: Int) => Datum(
+      i,
+      s"label_$i",
+      i % num_partitions,
+      new Date(today.getTime + (i * DayMS * dayDelta)),
+      new Timestamp(now.getTime + (i * tsDelta)))
+    )
+  }
 
   def assertDataIn(tableName: String) = {
     import spark.implicits._
@@ -85,4 +105,9 @@ trait SimpleFixture extends Fixture[Datum] {
 
 }
 
+object SimpleFixture {
 
+  TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+
+  val now = new Date(new java.util.Date().getTime)
+}
