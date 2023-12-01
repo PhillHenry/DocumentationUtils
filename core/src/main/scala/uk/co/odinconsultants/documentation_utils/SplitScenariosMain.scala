@@ -50,8 +50,10 @@ object SplitScenariosMain {
     }
 
   def main(args: Array[String]): Unit = {
-    val pattern  = if (args.length == 0) DEFAULT_SPEC_DELIMITER_REGEX else args(0)
-    val filename = if (args.length == 0) "target/surefire-reports/scenarios.txt" else args(1)
+    args.zipWithIndex.foreach { case (arg: String, i: Int) => println(s"$i: $arg") }
+    val header  = if (args.length < 1) "" else args(0)
+    val filename = if (args.length < 2) "target/surefire-reports/scenarios.txt" else args(1)
+    val pattern  = if (args.length < 3) DEFAULT_SPEC_DELIMITER_REGEX else args(2)
     val files    = parse(pattern, filename)
     val htmlFiles =  files.map { file =>
       println(s"ansi2html $file")
@@ -62,11 +64,6 @@ object SplitScenariosMain {
         #> new File(s"$HUGO_CONTENT$htmlFile")).!!
       htmlFile
     }
-    val header = """## Iceberg Playground
-                   |
-                   |These are BDD (Behaviour Driven Design) tests that both test
-                   |the code and generate human readable documentation.
-                   |""".stripMargin
     val md = new ArrayBuffer[String]()
     md.append(header)
     for (file <- htmlFiles.map(_.substring(1)).sorted) {
