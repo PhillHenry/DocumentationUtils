@@ -2,6 +2,7 @@ package uk.co.odinconsultants.documentation_utils
 
 import org.apache.spark.sql.{Dataset, SparkSession}
 
+import java.io.ByteArrayOutputStream
 import java.nio.file.{Path, Paths}
 import java.sql.Timestamp
 import scala.annotation.tailrec
@@ -38,7 +39,8 @@ trait SimpleFixture extends Fixture[Datum] {
   val tsDelta: Long = 200
   val dayDelta: Int = -1
 
-  val data: Seq[Datum] = {
+  def createData(num_partitions: Int, now: Date, dayDelta: Int, tsDelta: Long): Seq[Datum] = {
+    val today = new Date((now.getTime / DayMS).toLong * DayMS)
     Seq.range(0, num_rows).map((i: Int) => Datum(
       i,
       s"label_$i",
@@ -47,6 +49,8 @@ trait SimpleFixture extends Fixture[Datum] {
       new Timestamp(now.getTime + (i * tsDelta)))
     )
   }
+
+  val data: Seq[Datum] = createData(num_partitions, now, dayDelta, tsDelta)
 
   def assertDataIn(tableName: String) = {
     import spark.implicits._
@@ -103,6 +107,13 @@ trait SimpleFixture extends Fixture[Datum] {
     diffs
   }
 
+  def captureOutputOf[T](thunk: => T): String = {
+    val out = new ByteArrayOutputStream()
+    Console.withOut(out) {
+      thunk
+    }
+    new String(out.toByteArray)
+  }
 }
 
 object SimpleFixture {
