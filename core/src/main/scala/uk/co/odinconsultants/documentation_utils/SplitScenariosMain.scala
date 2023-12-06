@@ -65,7 +65,8 @@ object SplitScenariosMain {
       htmlFile
     }
     val md = new ArrayBuffer[String]()
-    md.append(header)
+    println(s"Header:\n<$header>")
+    md.append(s"$header\n\n")
     for (file <- htmlFiles.map(_.substring(1)).sorted) {
       md.append(s"[${file.substring(0, file.lastIndexOf("."))}]($file)\n")
     }
