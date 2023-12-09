@@ -6,7 +6,7 @@
     <parent>
         <groupId>uk.co.odinconsultants.documentation_utils</groupId>
         <artifactId>DocumentationUtils</artifactId>
-        <version>0.9</version>
+        <version>0.10</version>
     </parent>
     <groupId>uk.co.odinconsultants.documentation_utils</groupId>
     <artifactId>spark</artifactId>
