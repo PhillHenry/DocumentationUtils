@@ -1,5 +1,7 @@
 package uk.co.odinconsultants.documentation_utils
 
+import uk.co.odinconsultants.documentation_utils.TextUtils.fromCamelCase
+
 import java.io.File
 import java.nio.file.{Files, Paths}
 import scala.collection.mutable.ArrayBuffer
@@ -68,7 +70,8 @@ object SplitScenariosMain {
     println(s"Header:\n<$header>")
     md.append(s"$header\n\n")
     for (file <- htmlFiles.map(_.substring(1)).sorted) {
-      md.append(s"[${file.substring(0, file.lastIndexOf("."))}]($file)\n")
+      val withoutExtension: String = file.substring(0, file.lastIndexOf("."))
+      md.append(s"[${fromCamelCase(withoutExtension)}]($file)\n")
     }
     Files.write(Paths.get(s"$HUGO_CONTENT/index.md"), md.mkString("\n").getBytes())
   }
