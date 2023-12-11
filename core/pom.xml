@@ -4,7 +4,7 @@
   <parent>
     <groupId>uk.co.odinconsultants.documentation_utils</groupId>
     <artifactId>DocumentationUtils</artifactId>
-    <version>0.10</version>
+    <version>0.11</version>
   </parent>
 
   <artifactId>core</artifactId>

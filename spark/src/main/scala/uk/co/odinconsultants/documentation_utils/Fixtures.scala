@@ -39,7 +39,7 @@ trait SimpleFixture extends Fixture[Datum] {
   val tsDelta: Long = 200
   val dayDelta: Int = -1
 
-  def createData(num_partitions: Int, now: Date, dayDelta: Int, tsDelta: Long): Seq[Datum] = {
+  def createData(num_partitions: Int, now: Date, dayDelta: Int, tsDelta: Long, num_rows: Int = num_rows): Seq[Datum] = {
     val today = new Date((now.getTime / DayMS).toLong * DayMS)
     Seq.range(0, num_rows).map((i: Int) => Datum(
       i,
