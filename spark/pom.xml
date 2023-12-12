@@ -6,7 +6,7 @@
     <parent>
         <groupId>uk.co.odinconsultants.documentation_utils</groupId>
         <artifactId>DocumentationUtils</artifactId>
-        <version>0.12</version>
+        <version>0.13</version>
     </parent>
     <groupId>uk.co.odinconsultants.documentation_utils</groupId>
     <artifactId>spark_${scala.compat.version}</artifactId>

@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>uk.co.odinconsultants.documentation_utils</groupId>
     <artifactId>DocumentationUtils</artifactId>
-    <version>0.12</version>
+    <version>0.13</version>
     <name>${project.artifactId}</name>
     <description>Utilities for making readable BDD tests</description>
     <inceptionYear>2023</inceptionYear>
@@ -46,11 +46,6 @@
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
             <version>${scala.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.scala-lang.modules</groupId>
-            <artifactId>scala-collection-compat_${scala.compat.version}</artifactId>
-            <version>2.10.0</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
