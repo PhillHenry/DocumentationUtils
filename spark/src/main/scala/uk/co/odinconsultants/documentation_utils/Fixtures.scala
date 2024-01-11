@@ -27,7 +27,7 @@ trait SimpleFixture extends Fixture[Datum] {
 
   val DayMS: Long = 24 * 60 * 60 * 1000
 
-  val num_partitions: Int = 5
+  def num_partitions: Int = 5
 
   def num_rows: Int = 20
 
@@ -90,14 +90,15 @@ trait SimpleFixture extends Fixture[Datum] {
       }
     }
 
+  implicit val comparison = new Ordering[Datum] {
+    override def compare(
+                          x: Datum,
+                          y: Datum,
+                        ): Int =
+      (x.id - y.id) + (x.label.hashCode - y.label.hashCode) + (x.partitionKey - y.partitionKey).toInt
+  }
+
   def diffHavingOrdered(other: Seq[Datum]): Seq[Datum] = {
-    implicit val comparison = new Ordering[Datum] {
-      override def compare(
-                            x: Datum,
-                            y: Datum,
-                          ): Int =
-        (x.id - y.id) + (x.label.hashCode - y.label.hashCode) + (x.partitionKey - y.partitionKey).toInt
-    }
     val sortedData          = data.sorted
     val sortedOther         = other.sorted
     val inData              = inYnotX(sortedData, sortedOther, Seq.empty)

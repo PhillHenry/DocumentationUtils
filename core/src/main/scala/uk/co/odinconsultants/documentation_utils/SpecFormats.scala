@@ -8,8 +8,7 @@ trait SpecFormats {
 
   def inTheRangeOf(range: Range): String = s"in the range from ${range.start} to ${range.`end`}"
 
-  def prettyPrintSampleOf[T](xs: Iterable[T]): String = {
-    val sampleSize = 3
+  def prettyPrintSampleOf[T](xs: Iterable[T], sampleSize: Int = 3): String = {
     val sample: List[String] = alternativeColours(xs.take(sampleSize))
     val footer: String = if (xs.size > sampleSize) "..." else ""
     s"${indent(sample).mkString("\n")}$footer"
@@ -29,6 +28,10 @@ trait SpecFormats {
       s"$colour$x"
     }.toList :+ s"${Console.RESET}"
   }
+
+  def emphasise(x: String): String = s"${Console.BOLD}$x${Console.RESET}"
+
+  def truncatingUpto(msg: String, x: String): String = s"$x${msg.substring(msg.indexOf(x))}"
 
   def delimiter(n: Int): String = {
     val colours = List(
