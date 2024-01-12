@@ -8,8 +8,9 @@ import java.sql.Timestamp
 import scala.annotation.tailrec
 import java.sql.Date
 import java.util.TimeZone
+import scala.util.Random
 
-case class Datum(id: Int, label: String, partitionKey: Long, date: Date, timestamp: Timestamp) {
+case class Datum(id: Int, label: String, partitionKey: Long, date: Date, timestamp: Timestamp, randomInt: Int) {
   def toInsertSubclause: String = s"(${id}, '${label}', ${partitionKey}, cast(date_format('${date}', 'yyyy-MM-dd') as date), cast(date_format('${timestamp}', 'yyyy-MM-dd HH:mm:ss.SSS') as timestamp))"
 }
 
@@ -41,12 +42,15 @@ trait SimpleFixture extends Fixture[Datum] {
 
   def createData(num_partitions: Int, now: Date, dayDelta: Int, tsDelta: Long, num_rows: Int = num_rows): Seq[Datum] = {
     val today = new Date((now.getTime / DayMS).toLong * DayMS)
+    val random = new Random()
     Seq.range(0, num_rows).map((i: Int) => Datum(
       i,
       s"label_$i",
       i % num_partitions,
       new Date(today.getTime + (i * DayMS * dayDelta)),
-      new Timestamp(now.getTime + (i * tsDelta)))
+      new Timestamp(now.getTime + (i * tsDelta)),
+      random.nextInt()
+    )
     )
   }
 

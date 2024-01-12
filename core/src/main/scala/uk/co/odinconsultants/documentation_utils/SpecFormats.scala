@@ -8,7 +8,7 @@ trait SpecFormats {
 
   def inTheRangeOf(range: Range): String = s"in the range from ${range.start} to ${range.`end`}"
 
-  def prettyPrintSampleOf[T](xs: Iterable[T], sampleSize: Int = 3): String = {
+  def prettyPrintSampleOf[T](xs: Seq[T], sampleSize: Int = 3): String = {
     val sample: List[String] = alternativeColours(xs.take(sampleSize))
     val footer: String = if (xs.size > sampleSize) "..." else ""
     s"${indent(sample).mkString("\n")}$footer"
@@ -20,9 +20,9 @@ trait SpecFormats {
 
   def formatSQL(sql: String): String = s"\n${Console.YELLOW}${format(sql)}${Console.RESET}"
 
-  def toHumanReadable[T](rows: Iterable[T]): String = alternativeColours(rows).mkString("\n")
+  def toHumanReadable[T](rows: Seq[T]): String = alternativeColours(rows).mkString("\n")
 
-  def alternativeColours[T](xs: Iterable[T]): List[String] = {
+  def alternativeColours[T](xs: Seq[T]): List[String] = {
     xs.zipWithIndex.map { case (x: T, index: Int) =>
       val colour = if (index % 2 == 0) Console.YELLOW else Console.MAGENTA
       s"$colour$x"
