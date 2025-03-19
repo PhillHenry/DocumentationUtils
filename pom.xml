@@ -34,6 +34,7 @@
         <scala.compat.version>2.13</scala.compat.version>
         <scalatest.version>3.2.9</scalatest.version>
         <junit.version>5.10.1</junit.version>
+        <specs2.version>4.20.4</specs2.version>
     </properties>
 
     <modules>
@@ -73,13 +74,25 @@
         <dependency>
             <groupId>org.specs2</groupId>
             <artifactId>specs2-core_${scala.compat.version}</artifactId>
-            <version>4.20.2</version>
+            <version>${specs2.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.specs2</groupId>
             <artifactId>specs2-junit_2.13</artifactId>
-            <version>4.20.2</version>
+            <version>${specs2.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.specs2</groupId>
+            <artifactId>specs2-markdown_${scala.compat.version}</artifactId>
+            <version>${specs2.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.specs2</groupId>
+            <artifactId>specs2-html_${scala.compat.version}</artifactId>
+            <version>${specs2.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -90,12 +103,7 @@
             <version>3.2.15</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.specs2</groupId>
-            <artifactId>specs2-markdown_${scala.compat.version}</artifactId>
-            <version>4.20.2</version>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
@@ -284,12 +292,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M7</version>
+                <version>3.5.2</version>
                 <configuration>
                     <includes>
                         <include>**/*Spec*</include>
                     </includes>
                     <useFile>false</useFile>
+                    <systemPropertyVariables>
+                        <specs2.reporter.markdown>true</specs2.reporter.markdown>
+                        <specs2.report.show>markdown</specs2.report.show>
+                        <specs2.args>html</specs2.args>
+                    </systemPropertyVariables>
                 </configuration>
                 <executions>
                     <execution>
